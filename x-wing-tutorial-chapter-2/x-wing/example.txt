@@ -1,0 +1,137 @@
+- Add 
+        frc::Relay m_centerLazerRelay;
+    to RobotContainer.h
+- Add 
+        static constexpr int kCenterLazerRelayChannel = 0;
+    to Constants.h
+-Create LazerSubsystem.h as follows
+        #pragma once
+
+        #include <frc/Joystick.h>
+        #include <frc/Relay.h>
+        #include <frc2/command/SubsystemBase.h>
+        #include <frc2/command/CommandHelper.h>
+
+        class LazerSubsystem : public frc2::SubsystemBase {
+            public:
+                LazerSubsystem(frc::Relay *relay);
+
+                /**
+                * Will be called periodically whenever the CommandScheduler runs.
+                */
+                void Periodic() override;
+
+                frc::Relay* GetRelay() { return m_relay; };
+
+                void RelayOn();
+                void RelayOff();
+            
+            private:
+                // Components (e.g. motor controllers and sensors) should generally be
+                // declared private and exposed only through public methods.
+                
+                frc::Relay *m_relay;
+
+        };
+- Create LazerSubsystem.cpp as follows
+        #include <Constants.h>
+
+        #include "subsystems/LazerSubsystem.h"
+
+        LazerSubsystem::LazerSubsystem(frc::Relay *relay) :
+            m_relay(relay) {
+            // Implementation of subsystem constructor goes here.
+        }
+
+        void LazerSubsystem::Periodic() {
+            // Implementation of subsystem periodic method goes here.
+        }
+
+        void LazerSubsystem::RelayOn() {
+            m_relay->Set(frc::Relay::kOn);
+            wpi::outs() << "RelayOn\n";
+        }
+
+        void LazerSubsystem::RelayOff() {
+            m_relay->Set(frc::Relay::kOff);
+            wpi::outs() << "RelayOff\n";
+        }
+- Add 
+        LazerSubsystem m_centerLazerSubsystem;
+    to RobotContainer.h
+- Add
+        m_centerLazerSubsystem { &m_centerLazerRelay }
+    to RobotContainer.cpp to the constructor init
+- Create FireCommand.h as follows
+        #pragma once
+
+        #include <frc2/command/CommandBase.h>
+        #include <frc2/command/CommandHelper.h>
+
+        #include "subsystems/LazerSubsystem.h"
+
+        class FireCommand : public frc2::CommandHelper<frc2::CommandBase, FireCommand> {
+            public:
+                /**
+                * Creates a new ExampleCommand.
+                *
+                * @param subsystem The subsystem used by this command.
+                */
+                explicit FireCommand(frc::Joystick *stick, int button, LazerSubsystem* subsystem, std::string label);
+
+                void Initialize() override;
+                void Execute() override;
+                bool IsFinished() override;
+
+                int GetButton() { return m_button; };
+
+                bool done = false;
+
+            private:
+                frc::Joystick *m_stick;
+                int m_button = -1;
+                LazerSubsystem* m_subsystem;
+                std::string m_name;
+        };
+- Create FireCommand.cpp as follows
+        #include <frc/Relay.h>
+
+        #include "Constants.h"
+
+        #include "commands/FireCommand.h"
+
+        FireCommand::FireCommand(frc::Joystick *stick, int button, LazerSubsystem* subsystem, std::string name) :
+            m_stick(stick),
+            m_button(button),
+            m_subsystem{subsystem},
+            m_name(name) {
+
+            AddRequirements({ subsystem });
+        }
+
+        void FireCommand::Initialize() {
+            wpi::outs() << "Initialize " << m_name << "\n";
+            done = false;
+            m_subsystem->RelayOn();
+        }
+
+        void FireCommand::Execute() {
+            wpi::outs() << "Execute " << m_name << "\n";
+            if(!done) {
+                done = !m_stick->GetRawButton(GetButton());
+            }
+        }
+
+        bool FireCommand::IsFinished() {
+            if(done) {
+                wpi::outs() << "IsFinsihed " << m_name << "\n";
+                m_subsystem->RelayOff();
+            }
+            return done;
+        }
+- Add
+        FireCommand m_fireCenterCommand;
+    to RobotContainer.h
+- Add 
+        m_fireCenterCommand { &m_stick, kButtonRight, &m_centerLazerSubsystem, "FireCommand" }
+    to RobotContainer.cpp to the constructor init        

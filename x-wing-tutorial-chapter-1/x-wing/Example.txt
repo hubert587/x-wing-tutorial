@@ -1,0 +1,22 @@
+- Add 
+        static constexpr int kJoystickPort = 0;
+    to Constants.h
+- Add 
+        frc::Joystick m_stick; 
+    to RobotContainer.h as private
+- Change the RobotContainer.cpp constructor as follows
+        RobotContainer::RobotContainer() : 
+            m_stick{ kJoystickPort } {
+
+            // Configure the button bindings
+            ConfigureButtonBindings();
+            }
+- Build/Simulate and test the red, blue, yellow, green, right button, and left button to figure out thier values
+- Add
+        static constexpr int kButtonGreen = 1;
+        static constexpr int kButtonRed = 2;
+        static constexpr int kButtonBlue = 3;
+        static constexpr int kButtonYellow = 4;
+        static constexpr int kButtonLeft = 5;
+        static constexpr int kButtonRight = 6;
+    to Constants.h and change the values if your joystick has different values

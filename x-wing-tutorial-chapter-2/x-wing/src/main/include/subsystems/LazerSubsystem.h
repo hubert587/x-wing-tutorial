@@ -14,7 +14,7 @@
 
 class LazerSubsystem : public frc2::SubsystemBase {
  public:
-  LazerSubsystem(frc::Relay *replay);
+  LazerSubsystem(frc::Relay *relay);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

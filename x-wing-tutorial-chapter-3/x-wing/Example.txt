@@ -1,0 +1,9 @@
+- Add kTopLeftLazerRelayChannel, kTopRightLazerRelayChannel, kBottomLeftLazerRelayChannel, kBottomRightLazerRelayChannel to Contants.h
+- Add a relay for each lazer to RobotContainer.h
+- Add a LazerSubsystem for each Lazer to RobotContainer.h
+- Add constructor init to RobotContainer.cpp
+- Copy FireCommand and rename QuadFireCommand,cpp and QuadFireCommand.h
+- Modify QuadFireCommand to support 4 Lazer subsystems instead of 1
+- Add QuadFireCommand to RobotContainer.h
+- Add constructor init to for QuadLazerCommand to RobotContainer.cpp using the left button
+- Map QuadLazerCommand button to joystick

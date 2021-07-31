@@ -1,0 +1,16 @@
+- Add kWingMotorChannel, kWingOpenDigitalInputChannel, and kWingCloseDigitalInputChannel to Contants.h
+- Add frc::Spark m_wingMotor, frc::DigitalInput m_wingOpenedDigitalInput, and frc::DigitalInput m_wingClosedDigitalInput to RobotContainer.h
+- Add contructor init to the RobotContainer.h constructor
+- Copy LazerSubsystem and rename to WingSubsstem
+- Modify WingSubsystem to take Spark and 2 DigitInuts
+- Add the following
+    GetWingMotor
+    GetWingOpenedDigitalInput
+    GetWingClosedDigitalInput
+    OpenWing
+    IsWingOpened
+    CloseWing
+    IsWingClosed
+    StopWing
+- Copy FireCommand twice and rename one OpenWingCommand and CloseWingCommand
+- both take a button, WingSubsystem, and name

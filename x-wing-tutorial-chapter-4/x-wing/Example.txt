@@ -1,0 +1,10 @@
+- Add kLandingGearDoubleSolenoidChannelForward and kLandingGearDoubleSolenoidChannelReverse to Constants.h with a unique id
+- Add frc::DoubleSolenoid m_landingGearDoubleSolenoid to the RobotContainer.h
+- Add constructor init for landing gear solenoid to RobotContainer.cpp constructor
+- Copy the LazerSubsystem and rename to LandingGearSubsystem
+- Modify constructor to take the double solenoid
+- Add methods for LandingGearDown, IsLandingGearDown, LandingGearUp, and IsLandingGearUp
+- Copy the FireCommand and rename to DeployLandingGearCommand
+- Constructor takes button, landing gear subsystem, and name
+- modify initialize to toggle the landing gear
+- 

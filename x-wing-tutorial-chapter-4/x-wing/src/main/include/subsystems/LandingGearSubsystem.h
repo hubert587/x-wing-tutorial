@@ -28,8 +28,6 @@ class LandingGearSubsystem : public frc2::SubsystemBase {
   bool IsLandingGearDown();
   void LandingGearUp();
   bool IsLandingGearUp();
-  bool GetDigitalInputValue();
-
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be

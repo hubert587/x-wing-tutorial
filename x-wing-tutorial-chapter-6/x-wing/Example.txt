@@ -1,0 +1,13 @@
+- Copy the lazer subsystem and rename FlySubsystem
+- Constructor takes no arguements
+- Add a function for Hyperspace that takes a bool as a parameter
+- Add to RobotContainer.h
+- Add consttructor init to RobotContainer.cpp
+- Copy FireCommand twice and rename FlyCommand and HyperspaceCommand
+- FlyCommand takes the joystick, FlySubsystem, and a name
+- Hyperspace Command takes the joystick, button, FlySubsystem, and a name
+- FlyCommand init should call FLySubsystem.Hyperspace(false) and return false for isFinished
+- HyperspaceCommand init should call FlySubsystem.Hyperspace(true), Execute checks if hyperspace button is no longer pressed, and IfFinsihed exits if the button was depressed
+- Add to RobotContainer.h and init constructor in RobotContainer.cpp
+- Set FlyCommand as the default for FlySubsystem
+- Map the hyperspace button

@@ -12,8 +12,12 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 void Robot::RobotInit() {
+  
   frc::SmartDashboard::PutString("Status", "RobotInit");
   frc::SmartDashboard::PutString("Message", "");
+  frc::SmartDashboard::PutBoolean("Switch", true);
+  frc::SmartDashboard::PutNumber("Speed", .051);
+  
 }
 
 /**
